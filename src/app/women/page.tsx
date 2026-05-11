@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
   title: "Women",
@@ -8,23 +9,7 @@ export const metadata: Metadata = {
 export default function WomenPage() {
   return (
     <>
-      {/* ── Hero ── */}
-      <section
-        style={{
-          background: "linear-gradient(135deg, #0f2347 0%, #1a3a6b 100%)",
-          padding: "72px 16px 56px",
-          textAlign: "center",
-          color: "#fff",
-        }}
-      >
-        <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.5)", marginBottom: "16px", letterSpacing: "0.05em" }}>
-          Home &rsaquo; Women
-        </p>
-        <h1 style={{ fontSize: "clamp(2rem, 5vw, 3rem)", fontWeight: 800, marginBottom: "12px" }}>
-          Women
-        </h1>
-        <div style={{ width: "48px", height: "3px", background: "#c8a84b", borderRadius: "2px", margin: "0 auto" }} />
-      </section>
+      <PageHero title="Women" breadcrumb="Women" image="https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=1600&q=80&auto=format&fit=crop" />
 
       {/* ── Content ── */}
       <section style={{ background: "#fff", padding: "64px 16px 80px" }}>

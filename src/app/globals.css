@@ -38,27 +38,27 @@ html {
 }
 
 body {
-  font-family: var(--font-source-sans), 'Source Sans Pro', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-open-sans), 'Open Sans', system-ui, -apple-system, sans-serif;
   color: var(--text-dark);
   background: white;
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Poppins for nav, headings, buttons */
+/* Montserrat for headings, nav, buttons — matches IPC Hebron */
 h1, h2, h3, h4, h5, h6,
 nav, .btn, .eyebrow {
-  font-family: var(--font-poppins), 'Poppins', system-ui, sans-serif;
+  font-family: var(--font-montserrat), 'Montserrat', system-ui, sans-serif;
 }
 
-/* Crimson Text for italic/scripture accents */
-.font-serif, blockquote, cite {
-  font-family: var(--font-crimson), 'Crimson Text', Georgia, serif;
-}
+/* IPC Hebron heading style — heavy weight, tight leading */
+h1 { font-weight: 900; letter-spacing: -0.01em; }
+h2 { font-weight: 800; }
+h3 { font-weight: 700; }
 
 /* font-sans utility */
 .font-sans {
-  font-family: var(--font-source-sans), 'Source Sans Pro', system-ui, sans-serif;
+  font-family: var(--font-open-sans), 'Open Sans', system-ui, sans-serif;
 }
 
 /* ══════════════════════════════════════
@@ -128,7 +128,7 @@ a, button, .btn {
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-montserrat), 'Montserrat', system-ui, sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;

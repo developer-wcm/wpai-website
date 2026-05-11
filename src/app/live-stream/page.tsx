@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import YoutubeSection from "@/components/YoutubeSection";
+import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
   title: "Live Stream",
@@ -11,27 +12,7 @@ const CHANNEL_ID = "UCH4Y_txbKRQ5JXw_e8qUqOw";
 export default function LiveStreamPage() {
   return (
     <>
-      {/* ── Hero ── */}
-      <section
-        style={{
-          background: "linear-gradient(135deg, #0f2347 0%, #1a3a6b 100%)",
-          padding: "72px 16px 56px",
-          textAlign: "center",
-          color: "#fff",
-        }}
-      >
-        <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.5)", marginBottom: "16px", letterSpacing: "0.05em" }}>
-          Home &rsaquo; Live Stream
-        </p>
-        <div style={{ fontSize: "2rem", marginBottom: "12px" }}>📺</div>
-        <h1 style={{ fontSize: "clamp(2rem, 5vw, 3rem)", fontWeight: 800, marginBottom: "12px" }}>
-          Live Stream
-        </h1>
-        <div style={{ width: "48px", height: "3px", background: "#c8a84b", borderRadius: "2px", margin: "0 auto 20px" }} />
-        <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.7)", lineHeight: 1.7 }}>
-          Join us live every Sunday at 10:00 AM · Wednesday 7:30 PM · Friday 7:30 PM
-        </p>
-      </section>
+      <PageHero title="Live Stream" breadcrumb="Live Stream" image="https://images.unsplash.com/photo-1507692049790-de58290a4334?w=1600&q=80&auto=format&fit=crop" />
 
       {/* ── Live embed ── */}
       <section style={{ background: "#0a1628", padding: "48px 16px" }}>
