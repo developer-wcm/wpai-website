@@ -1,20 +1,18 @@
 /**
  * ─────────────────────────────────────────────────────────────
  *  EMAIL CONFIGURATION
- *  Change MINISTRY_EMAIL below to update where prayer requests
- *  (and any future contact forms) are delivered.
+ *
+ *  ✏️  To change the recipient email:
+ *      Update MINISTRY_EMAIL below.
+ *
+ *  ✏️  To change the Gmail sender:
+ *      Update GMAIL_USER in .env.local
+ *      Update GMAIL_APP_PASSWORD in .env.local
  * ─────────────────────────────────────────────────────────────
  */
 
-/** ✏️  Change this to update the recipient email address */
-export const MINISTRY_EMAIL = "t42719877@gmail.com";
+/** Recipient — where prayer requests are delivered */
+export const MINISTRY_EMAIL = "pes6203114363@gmail.com";
 
-/** Display name shown in the "To:" field */
+/** Display name in the From field */
 export const MINISTRY_NAME  = "Washington Pentecostal Assembly";
-
-/** The "From" address — must be a verified Resend domain.
- *  Using onboarding@resend.dev works on the free plan for testing.
- *  For production, verify your own domain at resend.com/domains
- *  and change this to e.g. "noreply@wpai.org"
- */
-export const FROM_EMAIL = "onboarding@resend.dev";

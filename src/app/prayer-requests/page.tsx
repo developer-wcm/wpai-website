@@ -85,7 +85,6 @@ export default function PrayerRequestsPage() {
           {/* Success state */}
           {sent ? (
             <div style={{ textAlign: "center", padding: "40px 0" }}>
-              <div style={{ fontSize: "3rem", marginBottom: "16px" }}>🙏</div>
               <h3 style={{ fontSize: "1.3rem", fontWeight: 700, color: "#1a2e4a", marginBottom: "10px" }}>
                 Thank You
               </h3>
