@@ -71,7 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to main content
         </a>
         <Navbar />
-        <main id="main">{children}</main>
+        <main id="main" style={{ paddingTop: "70px" }}>{children}</main>
         <Footer />
         <ScrollAnimator />
       </body>

@@ -14,172 +14,197 @@ const NAV = [
   { href: "/contact",         label: "Contact"         },
 ];
 
-/* Breakpoint at which desktop nav shows */
-const DESKTOP_BP = 1100;
+const BP = 1100;
 
 export default function Navbar() {
-  const pathname  = usePathname();
-  const [open,     setOpen]     = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const pathname    = usePathname();
+  const [open,      setOpen]    = useState(false);
+  const [scrolled,  setScrolled]= useState(false);
+  const [desktop,   setDesktop] = useState(false);
 
-  /* Scroll shadow */
+  const isHome = pathname === "/";
+
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 10);
-    fn();
-    window.addEventListener("scroll", fn, { passive: true });
-    return () => window.removeEventListener("scroll", fn);
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    const onResize = () => setDesktop(window.innerWidth >= BP);
+    onScroll(); onResize();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
 
-  /* Responsive — track window width */
-  useEffect(() => {
-    const check = () => setIsDesktop(window.innerWidth >= DESKTOP_BP);
-    check();
-    window.addEventListener("resize", check, { passive: true });
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
-  /* Close drawer on navigation */
   useEffect(() => { setOpen(false); }, [pathname]);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href.split("#")[0]);
 
+  /* Transparent only on homepage before scroll */
+  const transparent = isHome && !scrolled;
+
   return (
-    <header
-      className="sticky top-0 z-50 bg-white"
-      style={{ boxShadow: scrolled ? "0 2px 12px rgba(0,0,0,0.08)" : "0 1px 0 #e5e7eb" }}
-    >
-      <div className="wrap">
-        <div style={{ display: "flex", alignItems: "center", height: "68px", gap: "16px" }}>
+    <header style={{
+      position: "fixed",
+      top: 0, left: 0, right: 0,
+      zIndex: 100,
+      background: transparent
+        ? "transparent"
+        : scrolled
+          ? "rgba(255,255,255,0.97)"
+          : "#ffffff",
+      backdropFilter: !transparent && scrolled ? "blur(12px)" : "none",
+      borderBottom: transparent ? "none" : "1px solid rgba(229,231,235,0.8)",
+      boxShadow: transparent ? "none" : scrolled ? "0 2px 20px rgba(0,0,0,0.08)" : "none",
+      transition: "background 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease",
+    }}>
+      <div className="wrap" style={{
+        height: "70px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: "16px",
+      }}>
 
-          {/* ── Logo ── */}
-          <Link
-            href="/"
-            aria-label="WPAI Home"
-            style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0, textDecoration: "none" }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/wpai-logo.png"
-              alt="Washington Pentecostal Assembly"
-              style={{ height: "48px", width: "auto", objectFit: "contain" }}
-            />
-          </Link>
-
-          {/* ── Desktop nav (>= 1100px) ── */}
-          {isDesktop && (
-            <nav
-              aria-label="Main navigation"
-              style={{ marginLeft: "auto", display: "flex", flexDirection: "column", alignItems: "center" }}
-            >
-              {/* Red cross */}
-              <div style={{ color: "#cc2222", fontSize: "0.9rem", lineHeight: 1, marginBottom: "2px" }}>✝</div>
-
-              <ul style={{ display: "flex", alignItems: "center", listStyle: "none", margin: 0, padding: 0 }}>
-                {NAV.map(({ href, label }) => {
-                  const active = isActive(href);
-                  return (
-                    <li key={href}>
-                      <Link
-                        href={href}
-                        style={{
-                          display: "block",
-                          padding: "4px 10px",
-                          fontSize: "0.74rem",
-                          fontWeight: active ? 700 : 500,
-                          color: active ? "#111" : "#444",
-                          textDecoration: "none",
-                          letterSpacing: "0.04em",
-                          textTransform: "uppercase",
-                          whiteSpace: "nowrap",
-                          borderBottom: active ? "2px solid #111" : "2px solid transparent",
-                          transition: "color 0.15s, border-color 0.15s",
-                        }}
-                        onMouseEnter={e => { if (!active) (e.currentTarget as HTMLElement).style.color = "#000"; }}
-                        onMouseLeave={e => { if (!active) (e.currentTarget as HTMLElement).style.color = "#444"; }}
-                      >
-                        {label}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </nav>
+        {/* ── Logo ── */}
+        <Link href="/" aria-label="WPAI" style={{
+          display: "flex", alignItems: "center", gap: "10px",
+          textDecoration: "none", flexShrink: 0,
+        }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/wpai-logo.png"
+            alt="WPAI"
+            style={{
+              height: "44px", width: "auto", objectFit: "contain",
+              filter: transparent ? "brightness(0) invert(1)" : "none",
+              transition: "filter 0.35s ease",
+            }}
+          />
+          {!transparent && (
+            <div style={{ lineHeight: 1 }}>
+              <div style={{
+                fontFamily: "var(--font-montserrat),'Montserrat',sans-serif",
+                fontWeight: 900, fontSize: "0.88rem",
+                color: "#0f2347", letterSpacing: "-0.01em",
+              }}>WPAI</div>
+              <div style={{
+                fontSize: "0.6rem", color: "#9ca3af",
+                fontWeight: 600, letterSpacing: "0.05em", marginTop: "2px",
+              }}>Washington Pentecostal Assembly</div>
+            </div>
           )}
+        </Link>
 
-          {/* ── Hamburger (< 1100px) ── */}
-          {!isDesktop && (
-            <button
-              style={{ marginLeft: "auto", background: "none", border: "none", cursor: "pointer", padding: "8px", flexShrink: 0 }}
-              onClick={() => setOpen(o => !o)}
-              aria-label={open ? "Close menu" : "Open menu"}
-              aria-expanded={open}
-              aria-controls="mobile-nav"
-            >
-              <svg width="24" height="24" fill="none" stroke="#333" strokeWidth="2" viewBox="0 0 24 24">
-                {open
-                  ? <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                  : <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-                }
-              </svg>
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* ── Mobile drawer ── */}
-      {!isDesktop && (
-        <div
-          id="mobile-nav"
-          style={{
-            maxHeight: open ? "600px" : "0",
-            overflow: "hidden",
-            transition: "max-height 0.3s ease",
-            background: "#fff",
-            borderTop: open ? "1px solid #e5e7eb" : "none",
-          }}
-        >
-          <ul style={{ listStyle: "none", margin: 0, padding: "8px 0 8px" }}>
+        {/* ── Desktop nav ── */}
+        {desktop && (
+          <nav style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             {NAV.map(({ href, label }) => {
               const active = isActive(href);
               return (
-                <li key={href}>
-                  <Link
-                    href={href}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      padding: "13px 20px",
-                      fontSize: "0.875rem",
-                      fontWeight: active ? 700 : 500,
-                      color: active ? "#111" : "#444",
-                      textDecoration: "none",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.04em",
-                      background: active ? "#f5f5f5" : "transparent",
-                      borderBottom: "1px solid #f3f4f6",
-                    }}
-                  >
-                    {label}
-                    {active && (
-                      <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#cc2222", flexShrink: 0 }} />
-                    )}
-                  </Link>
-                </li>
+                <Link
+                  key={href}
+                  href={href}
+                  style={{
+                    padding: "6px 13px",
+                    borderRadius: "6px",
+                    fontSize: "0.78rem",
+                    fontWeight: active ? 700 : 500,
+                    color: transparent
+                      ? "#ffffff"
+                      : active ? "#0f2347" : "#6b7280",
+                    textDecoration: "none",
+                    whiteSpace: "nowrap",
+                    background: active && !transparent ? "#f3f4f6" : "transparent",
+                    borderBottom: active && !transparent ? "2px solid #c8a84b" : "2px solid transparent",
+                    transition: "all 0.18s ease",
+                    textShadow: transparent ? "0 1px 4px rgba(0,0,0,0.4)" : "none",
+                  }}
+                  onMouseEnter={e => {
+                    const el = e.currentTarget as HTMLElement;
+                    if (!active) {
+                      el.style.color = transparent ? "#ffffff" : "#0f2347";
+                      el.style.background = transparent ? "rgba(255,255,255,0.12)" : "#f9fafb";
+                    }
+                  }}
+                  onMouseLeave={e => {
+                    const el = e.currentTarget as HTMLElement;
+                    if (!active) {
+                      el.style.color = transparent ? "#ffffff" : "#6b7280";
+                      el.style.background = "transparent";
+                    }
+                  }}
+                >
+                  {label}
+                </Link>
               );
             })}
-          </ul>
 
-          {/* Contact info at bottom of drawer */}
-          <div style={{ padding: "12px 20px 16px", borderTop: "1px solid #f0f0f0" }}>
-            <p style={{ fontSize: "0.75rem", color: "#999" }}>
-              📍 4318 Baltimore Ave, Bladensburg, MD 20710
-            </p>
-            <p style={{ fontSize: "0.75rem", color: "#999", marginTop: "4px" }}>
-              📞 (240) 909-6289
-            </p>
+            {/* end nav links */}
+          </nav>
+        )}
+
+        {/* ── Hamburger ── */}
+        {!desktop && (
+          <button
+            onClick={() => setOpen(o => !o)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            style={{
+              background: "none", border: "none", cursor: "pointer",
+              padding: "8px", borderRadius: "6px",
+              display: "flex", flexDirection: "column", gap: "5px",
+            }}
+          >
+            {[0, 1, 2].map(i => (
+              <span key={i} style={{
+                display: "block", width: "22px", height: "2px",
+                background: transparent ? "#ffffff" : "#0f2347",
+                borderRadius: "2px",
+                transition: "all 0.22s ease",
+                transform: open
+                  ? i === 0 ? "translateY(7px) rotate(45deg)"
+                  : i === 2 ? "translateY(-7px) rotate(-45deg)"
+                  : "scaleX(0)"
+                  : "none",
+                opacity: open && i === 1 ? 0 : 1,
+              }} />
+            ))}
+          </button>
+        )}
+      </div>
+
+      {/* ── Mobile drawer ── */}
+      {!desktop && (
+        <div style={{
+          maxHeight: open ? "580px" : "0",
+          overflow: "hidden",
+          transition: "max-height 0.3s ease",
+          background: "#ffffff",
+          borderTop: open ? "1px solid #e5e7eb" : "none",
+        }}>
+          <div className="wrap" style={{ paddingTop: "10px", paddingBottom: "20px" }}>
+            {NAV.map(({ href, label }) => {
+              const active = isActive(href);
+              return (
+                <Link key={href} href={href} style={{
+                  display: "flex", alignItems: "center", justifyContent: "space-between",
+                  padding: "12px 14px", borderRadius: "8px", marginBottom: "2px",
+                  fontSize: "0.875rem", fontWeight: active ? 700 : 500,
+                  color: active ? "#0f2347" : "#374151",
+                  textDecoration: "none",
+                  background: active ? "#f3f4f6" : "transparent",
+                }}>
+                  {label}
+                  {active && <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#c8a84b" }} />}
+                </Link>
+              );
+            })}
+            <div style={{ marginTop: "14px", paddingTop: "14px", borderTop: "1px solid #f3f4f6" }}>
+              <p style={{ fontSize: "0.72rem", color: "#9ca3af" }}>📍 4318 Baltimore Ave, Bladensburg, MD 20710</p>
+              <p style={{ fontSize: "0.72rem", color: "#9ca3af", marginTop: "4px" }}>📞 (240) 909-6289</p>
+            </div>
           </div>
         </div>
       )}

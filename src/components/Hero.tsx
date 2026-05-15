@@ -5,126 +5,130 @@ export default function Hero() {
     <section
       style={{
         position: "relative",
-        height: "calc(100vh - 72px)",
-        minHeight: "420px",
-        maxHeight: "820px",
+        height: "100vh",
+        minHeight: "560px",
         overflow: "hidden",
-        background: "#0f2347", /* fallback if image fails to load */
+        background: "#0a1628",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
       aria-label="Hero"
     >
-      {/* Background image — real WPAI hero photo */}
+      {/* Background image */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="https://www.wpai.org/wp-content/uploads/2018/01/WPA_FeaturedNew.png"
-        alt="Washington Pentecostal Assembly worship service"
+        alt=""
+        aria-hidden="true"
         style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition: "center top",
+          position: "absolute", inset: 0,
+          width: "100%", height: "100%",
+          objectFit: "cover", objectPosition: "center",
           animation: "none",
         }}
         loading="eager"
       />
 
-      {/* Dark overlay — slightly lighter than IPC Hebron to show the photo */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "rgba(0,0,0,0.45)",
-        }}
-      />
+      {/* Overlay — same dark blue tint as Vriesland */}
+      <div style={{
+        position: "absolute", inset: 0,
+        background: "rgba(8,18,45,0.55)",
+      }} />
 
-      {/* Bottom-left gradient — makes text pop without full overlay */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.1) 55%, transparent 100%)",
-        }}
-      />
+      {/* Centered content */}
+      <div style={{
+        position: "relative", zIndex: 2,
+        textAlign: "center", color: "#fff",
+        padding: "0 24px",
+        maxWidth: "820px", width: "100%",
+      }}>
+        {/* "Welcome to" */}
+        <p className="hero-sub" style={{
+          fontSize: "clamp(0.9rem,2vw,1.1rem)",
+          fontWeight: 400,
+          color: "rgba(255,255,255,0.88)",
+          letterSpacing: "0.04em",
+          marginBottom: "10px",
+        }}>
+          Welcome to
+        </p>
 
-      {/* ── Text — bottom-left, IPC Hebron style ── */}
-      <div
-        className="hero-title"
-        style={{
-          position: "absolute",
-          bottom: "3.5rem",
-          left: 0,
-          right: 0,
-          padding: "0 2rem",
-          maxWidth: "1280px",
-          margin: "0 auto",
-        }}
-      >
-        {/* Main headline — massive, ultra-bold, left-aligned */}
-        <h1
-          style={{
-            fontFamily: "var(--font-montserrat), 'Montserrat', sans-serif",
-            fontSize: "clamp(3rem, 8vw, 6.5rem)",
-            fontWeight: 900,
-            color: "#ffffff",
-            lineHeight: 1.0,
-            letterSpacing: "-0.01em",
-            textTransform: "uppercase",
-            margin: 0,
-            marginBottom: "1.25rem",
-          }}
-        >
-          WPA WELCOMES YOU
+        {/* Church name */}
+        <h1 className="hero-title" style={{
+          fontFamily: "var(--font-montserrat),'Montserrat',sans-serif",
+          fontSize: "clamp(2.2rem,6.5vw,5rem)",
+          fontWeight: 900,
+          color: "#ffffff",
+          lineHeight: 1.0,
+          letterSpacing: "-0.01em",
+          textTransform: "uppercase",
+          marginBottom: "22px",
+          textShadow: "0 2px 20px rgba(0,0,0,0.35)",
+        }}>
+          Washington Pentecostal Assembly
         </h1>
 
-        {/* Two pill buttons — exactly like IPC Hebron */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
-          <Link
-            href="/services"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "8px 22px",
-              border: "1.5px solid rgba(255,255,255,0.8)",
-              borderRadius: "999px",
-              color: "#ffffff",
-              fontFamily: "var(--font-montserrat), 'Montserrat', sans-serif",
-              fontSize: "0.72rem",
-              fontWeight: 600,
-              letterSpacing: "0.1em",
+        {/* Taglines */}
+        <div className="hero-sub" style={{ marginBottom: "40px" }}>
+          {["Christ-Centered.", "Bible-Believing.", "Spirit-Filled."].map(line => (
+            <p key={line} style={{
+              fontFamily: "var(--font-montserrat),'Montserrat',sans-serif",
+              fontSize: "clamp(0.82rem,1.8vw,1rem)",
+              fontWeight: 700,
+              color: "rgba(255,255,255,0.88)",
+              letterSpacing: "0.14em",
               textTransform: "uppercase",
-              textDecoration: "none",
-              transition: "background 0.2s, color 0.2s",
-              backdropFilter: "blur(4px)",
-              background: "rgba(255,255,255,0.08)",
-            }}
-          >
+              lineHeight: 1.8,
+            }}>
+              {line}
+            </p>
+          ))}
+        </div>
+
+        {/* Buttons — Vriesland style */}
+        <div className="hero-btns" style={{
+          display: "flex", flexWrap: "wrap",
+          gap: "12px", justifyContent: "center",
+        }}>
+          <Link href="/services" style={{
+            display: "inline-flex", alignItems: "center", justifyContent: "center",
+            padding: "13px 28px", borderRadius: "6px",
+            background: "#ffffff", color: "#0f2347",
+            fontFamily: "var(--font-montserrat),'Montserrat',sans-serif",
+            fontWeight: 700, fontSize: "0.82rem",
+            letterSpacing: "0.08em", textTransform: "uppercase",
+            textDecoration: "none",
+            boxShadow: "0 2px 12px rgba(0,0,0,0.2)",
+            transition: "all 0.2s ease",
+          }}>
             Service Times
           </Link>
-          <Link
-            href="/live-stream"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "8px 22px",
-              border: "1.5px solid rgba(255,255,255,0.8)",
-              borderRadius: "999px",
-              color: "#ffffff",
-              fontFamily: "var(--font-montserrat), 'Montserrat', sans-serif",
-              fontSize: "0.72rem",
-              fontWeight: 600,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              textDecoration: "none",
-              transition: "background 0.2s, color 0.2s",
-              backdropFilter: "blur(4px)",
-              background: "rgba(255,255,255,0.08)",
-            }}
-          >
-            Join Us Online
+          <Link href="/live-stream" style={{
+            display: "inline-flex", alignItems: "center", justifyContent: "center",
+            padding: "13px 28px", borderRadius: "6px",
+            background: "transparent", color: "#ffffff",
+            fontFamily: "var(--font-montserrat),'Montserrat',sans-serif",
+            fontWeight: 700, fontSize: "0.82rem",
+            letterSpacing: "0.08em", textTransform: "uppercase",
+            textDecoration: "none",
+            border: "2px solid rgba(255,255,255,0.65)",
+            transition: "all 0.2s ease",
+          }}>
+            Watch Online
+          </Link>
+          <Link href="/about" style={{
+            display: "inline-flex", alignItems: "center", justifyContent: "center",
+            padding: "13px 28px", borderRadius: "6px",
+            background: "transparent", color: "#ffffff",
+            fontFamily: "var(--font-montserrat),'Montserrat',sans-serif",
+            fontWeight: 700, fontSize: "0.82rem",
+            letterSpacing: "0.08em", textTransform: "uppercase",
+            textDecoration: "none",
+            border: "2px solid rgba(255,255,255,0.65)",
+            transition: "all 0.2s ease",
+          }}>
+            About Us
           </Link>
         </div>
       </div>
