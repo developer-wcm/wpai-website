@@ -14,53 +14,65 @@ export default function Home() {
       <Hero />
 
       {/* ══════════════════════════════════════
-          WELCOME SECTION — scroll animations
+          WELCOME SECTION
       ══════════════════════════════════════ */}
       <section style={{ background: "#ffffff", padding: "80px 16px 96px" }}>
         <div style={{ maxWidth: "760px", margin: "0 auto", textAlign: "center" }}>
 
-          {/* Each element gets .reveal — ScrollAnimator adds .hidden then removes it on scroll */}
-          <p className="reveal" style={{
+          {/* Eyebrow — animates in after hero */}
+          <p style={{
             fontFamily: "var(--font-montserrat),'Montserrat',sans-serif",
             fontSize: "0.68rem", fontWeight: 800,
             letterSpacing: "0.22em", textTransform: "uppercase",
             color: "#c8a84b", marginBottom: "16px",
+            animation: "fadeUp 0.6s ease 0.1s both",
           }}>
             Washington DC · Maryland · Virginia
           </p>
 
-          <h2 className="reveal" style={{
+          {/* Heading */}
+          <h2 style={{
             fontFamily: "var(--font-montserrat),'Montserrat',sans-serif",
             fontSize: "clamp(1.6rem,3.5vw,2.4rem)",
             fontWeight: 900, color: "#0f2347",
             letterSpacing: "-0.02em", lineHeight: 1.15,
             marginBottom: "20px",
+            animation: "fadeUp 0.6s ease 0.2s both",
           }}>
             Welcome to Washington<br />Pentecostal Assembly
           </h2>
 
-          <div className="reveal" style={{
+          {/* Gold divider */}
+          <div style={{
             width: "48px", height: "3px", background: "#c8a84b",
             borderRadius: "2px", margin: "0 auto 24px",
+            animation: "fadeUp 0.6s ease 0.3s both",
           }} />
 
-          <p className="reveal" style={{
+          {/* Address */}
+          <p style={{
             fontSize: "0.95rem", fontWeight: 700,
             color: "#0f2347", marginBottom: "8px",
+            animation: "fadeUp 0.6s ease 0.35s both",
           }}>
             4318 Baltimore Ave, Bladensburg, MD, 20710.
           </p>
 
-          <p className="reveal" style={{
-            fontSize: "0.875rem", color: "#9ca3af", marginBottom: "28px",
+          {/* Sub */}
+          <p style={{
+            fontSize: "0.875rem", color: "#9ca3af",
+            marginBottom: "28px",
+            animation: "fadeUp 0.6s ease 0.4s both",
           }}>
             A Malayalam/English church in the Washington DC, MD, VA region
           </p>
 
-          <p className="reveal" style={{
+          {/* Body */}
+          <p style={{
             fontSize: "0.95rem", color: "#4b5563",
             lineHeight: "1.9", maxWidth: "640px",
             margin: "0 auto 40px",
+            animation: "fadeUp 0.6s ease 0.45s both",
           }}>
             Christ-centered, Bible-believing, Born-again church living by the
             Holy Spirit. From the wisdom of the gray-haired to the wits of the
@@ -71,9 +83,11 @@ export default function Home() {
             and unending grace.
           </p>
 
-          <div className="reveal" style={{
+          {/* Service time chips */}
+          <div style={{
             display: "flex", flexWrap: "wrap",
             justifyContent: "center", gap: "12px",
+            animation: "fadeUp 0.6s ease 0.55s both",
           }}>
             {[
               { label: "Sunday Worship", time: "10:15 AM" },

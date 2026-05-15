@@ -78,8 +78,8 @@ export default function Navbar() {
             alt="WPAI"
             style={{
               height: "44px", width: "auto", objectFit: "contain",
-              filter: transparent ? "brightness(0) invert(1)" : "none",
-              transition: "filter 0.35s ease",
+              transition: "opacity 0.3s ease",
+              opacity: transparent ? 0.92 : 1,
             }}
           />
           {!transparent && (
